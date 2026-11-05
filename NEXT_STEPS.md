@@ -11,8 +11,8 @@ Repos and branches:
 
 | Item | State |
 |---|---|
-| Mobile M1–M6 | Built on stacked branches `devin/…-milestone-1` … `devin/1793824688-milestone-6`. No PRs yet |
-| Mobile M7 (Profile, Staff, Register) | [PR #1](https://github.com/utmemastery/manzu-mobile/pull/1), base milestone-6, open |
+| Mobile M1–M6 | Stacked PRs [#3](https://github.com/utmemastery/manzu-mobile/pull/3) (M1 → `main`), [#4](https://github.com/utmemastery/manzu-mobile/pull/4), [#5](https://github.com/utmemastery/manzu-mobile/pull/5), [#6](https://github.com/utmemastery/manzu-mobile/pull/6), [#7](https://github.com/utmemastery/manzu-mobile/pull/7), [#8](https://github.com/utmemastery/manzu-mobile/pull/8) (M6), open |
+| Mobile M7 (Profile, Staff, Register) | [PR #1](https://github.com/utmemastery/manzu-mobile/pull/1), base milestone-6 (PR #8), open |
 | Mobile M8 (push behind flag, offline audit, haptics, a11y, brand icons, EAS) | [PR #2](https://github.com/utmemastery/manzu-mobile/pull/2), base milestone-7, open |
 | Device testing | Not done (deferred until the build was finished) |
 | Backend/web changes | Task 1 security PR open on backend `med-version` |
@@ -22,7 +22,7 @@ Repos and branches:
 | # | Task | Repo | Status |
 |---|---|---|---|
 | 1 | Backend security fixes (B11, G9, G13, G14 + pharmacy-ADMIN escalation) | backend `med-version` | PR open: [backend #1](https://github.com/utmemastery/manzu-backend/pull/1) (review + merge + deploy; then mobile role-edit follow-up) |
-| 2 | Mobile repo hygiene: PRs for M1–M6, CI (typecheck + lint), merge chain into `main` | mobile | Not started |
+| 2 | Mobile repo hygiene: PRs for M1–M6, CI (typecheck + lint), merge chain into `main` | mobile | PRs #3–#8 open, CI on M8 branch; waiting for owner OK to merge the chain |
 | 3 | Push for real (G4): `PushToken` table, register/unregister endpoints, Expo sender on order events; switch the mobile flag on | backend + mobile | Not started |
 | 4 | Refresh tokens + logout (G2) and `GET /api/auth/me` (G1); return pharmacy status at login (G11) | backend + mobile | Not started |
 | 5 | Orders correctness: single-order PATCH keeps `cancelReason` + restocks (G7), server-side transition graph (G10) | backend (+ mobile simplification) | Not started |
@@ -47,7 +47,8 @@ Branch off backend `med-version`, one PR back into `med-version`.
 
 ### 2. Mobile repo hygiene
 - Open PRs for milestone-1 → `main`, milestone-2 → milestone-1, … milestone-6 → milestone-5 (same pattern as #1/#2). Merge bottom-up.
-- Add `.github/workflows/mobile.yml`: Node 22, `npm ci`, `npx tsc --noEmit`, `npx eslint . --max-warnings=0` in `mobile/`.
+- Add `.github/workflows/mobile.yml`: Node 22, `npm ci`, `npx tsc --noEmit`, `npx eslint . --max-warnings=0` in `mobile/`. Done on the M8 branch (PR #2); it starts running for every PR once the chain reaches `main`.
+- Merge order (owner approval needed): #3 → #4 → #5 → #6 → #7 → #8 → #1 → #2. Use **merge commits** (not squash) so each next PR's base stays valid; after each merge, retarget the next PR's base to `main` (GitHub does this automatically when the base branch is deleted on merge).
 
 ### 3. Push for real (G4)
 - Prisma: `PushToken { id, userId, pharmacyId, token @unique, platform, createdAt, lastSeenAt }`.
@@ -64,3 +65,4 @@ Needs: `npx eas-cli@latest init` (sets `EAS_PROJECT_ID`), EAS env vars `EXPO_PUB
 ## Log
 - 2026-11-05: M7 → PR #1, M8 → PR #2. This doc written; task 1 started.
 - 2026-11-05: Task 1 → [backend PR #1](https://github.com/utmemastery/manzu-backend/pull/1) (not merged; middleware/schema checks run in Node, server not run against a DB). Next: merge + deploy it, then task 2.
+- 2026-11-05: Task 2 → mobile PRs #3–#8 opened for M1–M6; CI workflow added to M8 branch. Next: owner approves merging the chain, then task 3.
