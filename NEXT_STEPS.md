@@ -15,13 +15,13 @@ Repos and branches:
 | Mobile M7 (Profile, Staff, Register) | [PR #1](https://github.com/utmemastery/manzu-mobile/pull/1), base milestone-6, open |
 | Mobile M8 (push behind flag, offline audit, haptics, a11y, brand icons, EAS) | [PR #2](https://github.com/utmemastery/manzu-mobile/pull/2), base milestone-7, open |
 | Device testing | Not done (deferred until the build was finished) |
-| Backend/web changes | None yet |
+| Backend/web changes | Task 1 security PR open on backend `med-version` |
 
 ## Task list
 
 | # | Task | Repo | Status |
 |---|---|---|---|
-| 1 | Backend security fixes (B11, G9, G13, G14 + pharmacy-ADMIN escalation) | backend `med-version` | In progress |
+| 1 | Backend security fixes (B11, G9, G13, G14 + pharmacy-ADMIN escalation) | backend `med-version` | PR open: [backend #1](https://github.com/utmemastery/manzu-backend/pull/1) (review + merge + deploy; then mobile role-edit follow-up) |
 | 2 | Mobile repo hygiene: PRs for M1–M6, CI (typecheck + lint), merge chain into `main` | mobile | Not started |
 | 3 | Push for real (G4): `PushToken` table, register/unregister endpoints, Expo sender on order events; switch the mobile flag on | backend + mobile | Not started |
 | 4 | Refresh tokens + logout (G2) and `GET /api/auth/me` (G1); return pharmacy status at login (G11) | backend + mobile | Not started |
@@ -63,3 +63,4 @@ Needs: `npx eas-cli@latest init` (sets `EAS_PROJECT_ID`), EAS env vars `EXPO_PUB
 
 ## Log
 - 2026-11-05: M7 → PR #1, M8 → PR #2. This doc written; task 1 started.
+- 2026-11-05: Task 1 → [backend PR #1](https://github.com/utmemastery/manzu-backend/pull/1) (not merged; middleware/schema checks run in Node, server not run against a DB). Next: merge + deploy it, then task 2.
