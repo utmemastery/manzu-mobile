@@ -31,8 +31,8 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/logo.png",
-          "imageWidth": 120,
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 160,
           "backgroundColor": "#FFFFFF"
         }
       ],
@@ -52,7 +52,15 @@
           "microphonePermission": false
         }
       ],
-      "react-native-maps"
+      "react-native-maps",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#1ABA7F",
+          "defaultChannel": "orders"
+        }
+      ]
     ],
     "scheme": "manzu-pharmacy",
     "experiments": {
