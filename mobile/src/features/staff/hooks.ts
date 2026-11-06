@@ -4,7 +4,7 @@ import { addStaff, deleteStaff, editStaff, getStaff, staffKeys } from './api';
 import type { EditStaffRequest } from './types';
 
 export function useStaff() {
-  return useQuery({ queryKey: staffKeys.all, queryFn: ({ signal }) => getStaff(signal) });
+  return useQuery({ queryKey: staffKeys.all, queryFn: ({ signal }) => getStaff(signal), meta: { persist: false } });
 }
 
 function useInvalidateStaff() {

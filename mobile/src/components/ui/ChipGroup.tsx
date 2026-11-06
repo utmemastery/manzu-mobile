@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, View } from 'react-native';
 
+import { haptics } from '@/lib/haptics';
 import { colors, radius } from '@/theme';
 
 import { Text } from './Text';
@@ -26,7 +27,10 @@ export function ChipGroup<T extends string>({ options, value, onChange, segmente
         return (
           <Pressable
             key={o.value}
-            onPress={() => onChange(o.value)}
+            onPress={() => {
+              if (!active) haptics.selection();
+              onChange(o.value);
+            }}
             accessibilityRole="tab"
             accessibilityState={{ selected: active }}
             style={[styles.chip, segmented && styles.segment, { backgroundColor: active ? colors.primary : segmented ? 'transparent' : colors.gray100 }]}

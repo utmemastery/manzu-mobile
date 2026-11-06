@@ -7,7 +7,7 @@ import type { BankAccountRequest, EarningsPeriod } from './types';
 export const PAYOUT_PAGE_SIZE = 20;
 
 export function useBankingStatus() {
-  return useQuery({ queryKey: payoutKeys.bankingStatus(), queryFn: ({ signal }) => getBankingStatus(signal) });
+  return useQuery({ queryKey: payoutKeys.bankingStatus(), queryFn: ({ signal }) => getBankingStatus(signal), meta: { persist: false } });
 }
 
 export function useBanks(enabled: boolean) {

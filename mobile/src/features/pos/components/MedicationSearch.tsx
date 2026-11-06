@@ -46,7 +46,7 @@ export function MedicationSearch({ onSelect, disabled }: Props) {
         />
         {query.isFetching && showResults ? <ActivityIndicator size="small" color={colors.primary} /> : null}
         {text && !query.isFetching ? (
-          <Pressable onPress={() => setText('')} hitSlop={10} accessibilityLabel="Clear search">
+          <Pressable onPress={() => setText('')} hitSlop={10} accessibilityRole="button" accessibilityLabel="Clear search">
             <X size={16} color={colors.gray400} />
           </Pressable>
         ) : null}
